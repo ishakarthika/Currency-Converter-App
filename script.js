@@ -1,7 +1,11 @@
+var myModal
 window.onload = function() {
-    var myModal = new bootstrap.Modal(document.getElementById('loginModal'))
-    myModal.show();
-
+    myModal = new bootstrap.Modal(document.getElementById('loginModal'))
+    var logInUser=localStorage.getItem('user');
+ 
+    if(!logInUser || logInUser == '') {
+        myModal.show();
+    }
     var userNameField = document.getElementById("formGroupExampleInput2");
 
     userNameField.addEventListener('keyup', function(event){
@@ -13,5 +17,11 @@ window.onload = function() {
             userNameField.classList.add('is-valid');
         }
     });
-    
+}
+function login() {
+    var user=document.getElementById("formGroupExampleInput2").value;
+    if(user){
+        localStorage.setItem('user', user);
+        myModal.hide();
+    }
 }
