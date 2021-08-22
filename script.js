@@ -1,6 +1,7 @@
 var myModal
 var countries;
 var fromList;
+var india;
 // load cities
 window.onload = function() {
     myModal = new bootstrap.Modal(document.getElementById('loginModal'))
@@ -34,10 +35,9 @@ function login() {
     document.getElementById("notlogin").style.display="none";
     document.getElementById("login-text").innerHTML="Hi "+user+ ", welcome back to Currency Converter";
 }
- // code to generate list dropdown;
+ // code to generate list dropdown for from source;
 function createFromDropdown(list) {
     countries.forEach(function(country) {
-        console.log(country);
         var code;
         var option = document.createElement('li');
         var flag = document.createElement('span');
@@ -52,27 +52,44 @@ function createFromDropdown(list) {
         option.innerHTML = country.country + ' ('+ country.currency_code+')';
         option.prepend(flag);
        
-        fromList.appendChild(option);
+        list.appendChild(option);
     })
 }
-// loading country list
+// Loading country list
 $(document).ready(function() {
     $.getJSON('./assets/country-json/src/country-by-currency-code.json', function(data) {
         console.log(data);
         countries = data;
-        // from country dropdown code
-        fromList = document.getElementById('from-country-list');
-        createFromDropdown(fromList);
-
-        fromList.addEventListener('click', function(event) {
-            console.log('e', event);
-            document.getElementById('from-cc-selected').innerHTML = event.target.textContent;
+        india = data.find(function(e) {
+           //  console.log('e', e);
+            return e.currency_code === 'INR';
         })
 
-        // to country dropdown code;
+        document.getElementById('from-cc-selected').innerHTML = india.country + ' (' + india.currency_code + ')';
+        document.getElementById('to-cc-selected').innerHTML = india.country + ' (' + india.currency_code + ')';
+        console.log(india);
+        // From country dropdown code
+        fromList = document.getElementById('from-country-list');
+        createFromDropdown(fromList);
+        toList=document.getElementById('to-country-list');
+        createFromDropdown(toList);
 
+        fromList.addEventListener('click', function(event) {
+            document.getElementById('from-cc-selected').innerHTML = event.target.textContent;
+          //  document.getElementById('from-cc-flag').classList.add('currency-flag');
+            console.log(event.target.textContent);
+
+            
+           // document.getElementById('from-cc-flag').classList.add()
+        })
+
+        toList.addEventListener('click', function(event) {
+            document.getElementById('to-cc-selected').innerHTML = event.target.textContent;
+
+        })
     });
 })
+
 
 
 

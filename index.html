@@ -48,12 +48,22 @@
   <h5 id="login-text"class="display-6 text-center"></h5>
 
   <div class="container">
-  <div class="dropdown text-left">
-    <button id="from-cc-selected" class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-      Select Source Currency Country
+    <div class="row">
+  <div class="dropdown text-left from-design col-sm-4">
+    <button id="from-cc-selected" class="btn btn- outline-secondary dropdown-toggle"style="color: #000" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      Select Source Currency Country 
+      <span id="from-cc-flag"></span>
     </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="from-country-list">
+    <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenuButton1" id="from-country-list">
     </ul>
+  </div>
+  <div class="dropdown text-center from-design col-sm-4">
+    <button id="to-cc-selected" class="btn btn- outline-secondary dropdown-toggle" style="color: #000"   type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      Select Destination Currency Country
+    </button>
+    <ul class="dropdown-menu  scrollable-menu" role="menu" aria-labelledby="dropdownMenuButton1" id="to-country-list">
+    </ul>
+  </div>
   </div>
 </div>
     </body>
