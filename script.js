@@ -102,9 +102,16 @@ $(document).ready(function() {
     });
 
     $.getJSON('./assets/countries.json', function(data) {
-        console.log('data', data);
         mainCountriesList = data;
-        document.getElementById('test').innerHTML = data[3].currency.symbol;
+
+        var country = mainCountriesList.find(function(i) {
+            return i.name === "India";
+        });
+        if(country && country.currency && country.currency.symbol) {
+            document.getElementById('test').innerHTML = country.currency.symbol;
+        } else {
+            document.getElementById('test').innerHTML = ''
+        }
     })
 })
 
