@@ -2,6 +2,7 @@ var myModal
 var countries;
 var fromList;
 var india;
+var mainCountriesList;
 // load cities
 window.onload = function() {
     myModal = new bootstrap.Modal(document.getElementById('loginModal'))
@@ -78,7 +79,18 @@ $(document).ready(function() {
             document.getElementById('from-cc-selected').innerHTML = event.target.textContent;
           //  document.getElementById('from-cc-flag').classList.add('currency-flag');
             console.log(event.target.textContent);
-
+            console.log(event.target.textContent.split(' '))
+            var country = mainCountriesList.find(function(i) {
+                console.log('i', i);
+                return i.name === event.target.textContent.split(' ')[0];
+            });
+            console.log(country);
+            if(country && country.currency && country.currency.symbol) {
+                document.getElementById('test').innerHTML = country.currency.symbol;
+            } else {
+                document.getElementById('test').innerHTML = ''
+            }
+            
             
            // document.getElementById('from-cc-flag').classList.add()
         })
@@ -88,6 +100,12 @@ $(document).ready(function() {
 
         })
     });
+
+    $.getJSON('./assets/countries.json', function(data) {
+        console.log('data', data);
+        mainCountriesList = data;
+        document.getElementById('test').innerHTML = data[3].currency.symbol;
+    })
 })
 
 

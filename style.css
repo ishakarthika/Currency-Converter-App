@@ -58,6 +58,31 @@
     margin: 0px 8px;
     vertical-align: middle;
 }
+.from-amount-container {
+    display: flex;
+    flex-direction: column;
+}
+.from-amount {
+    border-top: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 2px solid  #E76F51;
+    padding:0px !important;
+    margin: 0px !important;
+}
+.from-amount:focus {
+    box-shadow: none !important;
+    border-top: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    outline: 0 !important;
+}
+#test{
+    text-align: left;
+    margin-left: 10px;
+    position: relative;
+}
+
 
 
 
