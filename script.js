@@ -76,6 +76,7 @@ $(document).ready(function() {
         createFromDropdown(toList);
 
         fromList.addEventListener('click', function(event) {
+           
             document.getElementById('from-cc-selected').innerHTML = event.target.textContent;
           //  document.getElementById('from-cc-flag').classList.add('currency-flag');
             console.log(event.target.textContent);
@@ -91,13 +92,14 @@ $(document).ready(function() {
                 document.getElementById('test').innerHTML = ''
             }
             
-            
+            currency_conveter();
            // document.getElementById('from-cc-flag').classList.add()
         })
 
         toList.addEventListener('click', function(event) {
+            
             document.getElementById('to-cc-selected').innerHTML = event.target.textContent;
-
+            currency_conveter();
         })
     });
 
@@ -114,6 +116,38 @@ $(document).ready(function() {
         }
     })
 })
+function currency_conveter(){
+    console.log("currency_conveter");
+    var from_country_name=document.getElementById("from-cc-selected").innerHTML;
+    console.log(from_country_name);
+    var to_country_name=document.getElementById("to-cc-selected").innerHTML;
+    console.log(to_country_name);
+    var userEnteredNumber=document.getElementById("from-amount").value;
+    console.log(userEnteredNumber);
+    from_country_name = from_country_name.split(' ')[1];
+    from_country_name = from_country_name.replace('(', '');
+    from_country_name = from_country_name.replace(')', '');
+    console.log(from_country_name);
+    to_country_name = to_country_name.split(' ')[1];
+    to_country_name = to_country_name.replace('(', '');
+    to_country_name = to_country_name.replace(')', '');
+    console.log(to_country_name);
+    $.ajax({
+        url: 'http://api.exchangeratesapi.io/v1/latest?access_key=299eb1c5de6da25873ebf17356274d37&symbols=' + to_country_name,
+        success: function(data) {
+            console.log('data-1', data)
+        }
+    })
+
+    $.ajax({
+        url: 'http://api.exchangeratesapi.io/v1/latest?access_key=299eb1c5de6da25873ebf17356274d37&symbols=' + from_country_name,
+        success: function(data) {
+            console.log('data-2', data)
+        }
+    })
+
+
+}
 
 
 
