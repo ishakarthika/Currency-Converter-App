@@ -68,12 +68,15 @@
     <div class="row">
     <div id="test" class="col-sm-2"></div>
     <form class="from-amount-container col-sm-9">
-      <input class="from-amount" type="number" class="form-control" id="from-amount" placeholder="Enter the amount" onchange="currency_conveter()" />
+      <input class="from-amount" type="number" class="form-control" id="from-amount" placeholder="Enter the amount" oninput="currency_conveter()" />
 
   </form>
 </div>
   </div>
-  <div>to</div>
+  <div class="col-sm-4">
+    <div class="row">
+    <div id="test1" class="col-sm-2"></div>
+    <div id="toAmount"></div>
   </div>
 </div>
     </body>
