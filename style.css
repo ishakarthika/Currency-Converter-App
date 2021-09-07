@@ -69,6 +69,7 @@
     border-bottom: 2px solid  #E76F51;
     padding:0px !important;
     margin: 0px !important;
+    width: 100% !important;
 }
 .from-amount:focus {
     box-shadow: none !important;
@@ -78,10 +79,15 @@
     outline: 0 !important;
 }
 #test{
-    text-align: left;
-    margin-left: 10px;
-    position: relative;
+    text-align: end;
+    margin: 2px 0px;
 }
+#test1{
+    text-align: end;
+    margin: 2px 0px;
+    padding-right: 3px;
+}
+
 
 
 

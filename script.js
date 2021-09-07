@@ -3,6 +3,7 @@ var countries;
 var fromList;
 var india;
 var mainCountriesList;
+var mainCountriesList1;
 // load cities
 window.onload = function() {
     myModal = new bootstrap.Modal(document.getElementById('loginModal'))
@@ -76,6 +77,7 @@ $(document).ready(function() {
         createFromDropdown(toList);
 
         fromList.addEventListener('click', function(event) {
+           
             document.getElementById('from-cc-selected').innerHTML = event.target.textContent;
           //  document.getElementById('from-cc-flag').classList.add('currency-flag');
             console.log(event.target.textContent);
@@ -91,22 +93,95 @@ $(document).ready(function() {
                 document.getElementById('test').innerHTML = ''
             }
             
-            
+            currency_conveter();
            // document.getElementById('from-cc-flag').classList.add()
         })
 
         toList.addEventListener('click', function(event) {
+            
             document.getElementById('to-cc-selected').innerHTML = event.target.textContent;
-
+            console.log(event.target.textContent);
+            console.log(event.target.textContent.split(' '))
+            var country = mainCountriesList.find(function(i) {
+                console.log('i', i);
+                return i.name === event.target.textContent.split(' ')[0];
+            });
+            console.log(country);
+            if(country && country.currency && country.currency.symbol) {
+                document.getElementById('test1').innerHTML = country.currency.symbol;
+            } else {
+                document.getElementById('test1').innerHTML = ''
+            }
+            currency_conveter();
         })
+        
     });
 
     $.getJSON('./assets/countries.json', function(data) {
-        console.log('data', data);
         mainCountriesList = data;
-        document.getElementById('test').innerHTML = data[3].currency.symbol;
+
+        var country = mainCountriesList.find(function(i) {
+            return i.name === "India";
+        });
+        if(country && country.currency && country.currency.symbol) {
+            document.getElementById('test').innerHTML = country.currency.symbol;
+        } else {
+            document.getElementById('test').innerHTML = ''
+        }
+    })
+    $.getJSON('./assets/countries.json', function(data) {
+        mainCountriesList1 = data;
+
+        var country = mainCountriesList1.find(function(i) {
+            return i.name === "India";
+        });
+        if(country && country.currency && country.currency.symbol) {
+            document.getElementById('test1').innerHTML = country.currency.symbol;
+        } else {
+            document.getElementById('test1').innerHTML = ''
+        }
     })
 })
+function currency_conveter(){
+    var from_country_name=document.getElementById("from-cc-selected").innerHTML;
+    var to_country_name=document.getElementById("to-cc-selected").innerHTML;
+    var userEnteredNumber=document.getElementById("from-amount").value;
+    from_country_name = from_country_name.split(' ')[1];
+    from_country_name = from_country_name.replace('(', '');
+    from_country_name = from_country_name.replace(')', '');
+    to_country_name = to_country_name.split(' ')[1];
+    to_country_name = to_country_name.replace('(', '');
+    to_country_name = to_country_name.replace(')', '');
+    Promise.all([
+        $.ajax({
+            url: 'http://api.exchangeratesapi.io/v1/latest?access_key=299eb1c5de6da25873ebf17356274d37&symbols=' + from_country_name,
+        }),
+        $.ajax({
+            url: 'http://api.exchangeratesapi.io/v1/latest?access_key=299eb1c5de6da25873ebf17356274d37&symbols=' + to_country_name,
+        })
+    ])
+    .then(function(data) {
+        console.log('data', data);
+        var fromExRate = data[0].rates[from_country_name]
+        var toExRate = data[1].rates[to_country_name]
+
+        var baseExRate = baseCurrencyconveter(fromExRate, toExRate);
+        console.log(baseExRate);
+        var toAmount;
+        if(userEnteredNumber) {
+            toAmount = userEnteredNumber * baseExRate;
+            toAmount = Math.round(toAmount);
+            console.log(toAmount);
+            document.getElementById('toAmount').innerHTML = toAmount;
+        }
+    })
+
+
+}
+function baseCurrencyconveter(Num1, Num2){
+    var Num3 = 1/Num1 * Num2;
+    return Num3;
+}
 
 
 
