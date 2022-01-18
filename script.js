@@ -154,10 +154,10 @@ function currency_conveter(){
     to_country_name = to_country_name.replace(')', '');
     Promise.all([
         $.ajax({
-            url: 'http://api.exchangeratesapi.io/v1/latest?access_key=299eb1c5de6da25873ebf17356274d37&symbols=' + from_country_name,
+            url: 'http://api.exchangeratesapi.io/v1/latest?access_key=299eb1c5de6da25873ebf17356274d37& base = GBP&symbols=' + from_country_name,
         }),
         $.ajax({
-            url: 'http://api.exchangeratesapi.io/v1/latest?access_key=299eb1c5de6da25873ebf17356274d37&symbols=' + to_country_name,
+            url: 'http://api.exchangeratesapi.io/v1/latest?access_key=299eb1c5de6da25873ebf17356274d37& base = GBP&symbols=' + to_country_name,
         })
     ])
     .then(function(data) {
